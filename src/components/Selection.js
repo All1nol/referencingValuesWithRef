@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const CustomSelect = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +22,13 @@ const CustomSelect = () => {
   };
 
 
-  React.useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-  }, []);
+  useEffect(() => {
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, []);
+
 
   return (
     <div ref={selectRef}>
